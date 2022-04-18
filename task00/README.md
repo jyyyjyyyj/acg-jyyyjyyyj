@@ -13,6 +13,10 @@ Follow the instruction below to build the attached C++ code. This code will disp
 === (paste the screenshot image here`![](image file name)` ) === 
 
 
+
+![](result0.png)
+
+
 ----
 
 
@@ -116,5 +120,4 @@ got to the GitHub webpage `https://github.com/ACG-2022S/acg-<username>` . If eve
 
 - I mistakenly submit the assignement in the `main` branch
   - Make a branch `task00` and submit again
-
 
