@@ -25,8 +25,12 @@ Now you are ready to go!
 2. Run the code
 3. Take a screenshot image (looks like image at the top)
 4. Save the screenshot image overwriting `task01/problem1.png`
- 
+
 ![problem1](problem1.png)
+
+
+
+![](img1.png)
 
 
 ## Problem 2
@@ -36,6 +40,10 @@ Write some code (about 20 lines) around `line #33` in `main.cpp` to define the H
 Save the screenshot image overwriting `task01/problem2.png`
 
 ![problem2](problem2.png)
+
+
+
+![](img2.png)
 
 
 ## After Doing the Assignment

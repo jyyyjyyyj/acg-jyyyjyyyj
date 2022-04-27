@@ -1,10 +1,10 @@
+#include <functional>
 #include <cstdio>
 #include <cstdlib>
 #define GL_SILENCE_DEPRECATION
 #include <GLFW/glfw3.h>
 #include <filesystem>
 #include <Eigen/Dense>
-
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include "delfem2/glfw/viewer2.h"
@@ -31,7 +31,22 @@ Eigen::Matrix<double,4,4,Eigen::RowMajor> GetHomographicTransformation(
   // (c0[2][0],c0[][1],z) -> (c1[2][0],c1[2][1],z)
   // (c0[3][0],c0[][1],z) -> (c1[3][0],c1[3][1],z)
 
-  return m;
+	Eigen::Matrix<double, 8, 8, Eigen::RowMajor> p;
+    for (int i = 0; i < 4; i++)
+    {
+        p.row(i*2) << c0[i][0], c0[i][1], 1, 0, 0, 0, -c0[i][0] * c1[i][0], -c0[i][1] * c1[i][0];
+        p.row(i*2+1) << 0, 0, 0, c0[i][0], c0[i][1], 1, -c0[i][0] * c1[i][1], -c0[i][1] * c1[i][1];
+    }
+    Eigen::VectorXd b(8);
+    b << c1[0][0], c1[0][1], c1[1][0], c1[1][1], c1[2][0], c1[2][1], c1[3][0], c1[3][1];
+
+    Eigen::VectorXd x = p.inverse() * b;
+    m << x(0), x(1), 0, x(2),
+        x(3), x(4), 0, x(5),
+        0, 0, 1, 0,
+        x(6), x(7), 0, 1;
+
+    return m;
 }
 
 int main() {

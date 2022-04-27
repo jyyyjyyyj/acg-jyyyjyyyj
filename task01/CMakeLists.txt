@@ -11,6 +11,7 @@ ELSE()
   set(CMAKE_CXX_FLAGS "-Wall -Wextra -g")
 ENDIF()
 
+
 #############################
 
 # set project name
@@ -32,6 +33,8 @@ find_package(glfw3 REQUIRED)
 # use eigen
 # find_package(Eigen3 REQUIRED) # works only for installation by package managers
 FILE(GLOB EIGEN3_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../external/eigen*) # find downloaded eigen directories in 3rd_party
+message(STATUS "eigen directory candidate: ${EIGEN3_ROOT}")
+
 include(${CMAKE_CURRENT_SOURCE_DIR}/../external/FindEigen3.cmake) # call script to find eigen3
 
 ########################
