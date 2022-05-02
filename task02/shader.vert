@@ -30,8 +30,25 @@ void main()
     // the "back" direction (i.e., +Z direction) will be projected as the unit circle in XY plane.
     // in GLSL, you can use built-in math function (e.g., sqrt, atan).
     // look at page 56 of https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.1.20.pdf
-    float x1 = x0;
-    float y1 = y0;
+    
+    float z_tmp = z0-cam_z_pos;
+    float t = 1/sqrt(x0*x0+y0*y0+z_tmp*z_tmp);
+    float x1 = t*x0;
+    float y1 = t*y0;
+    //float z1 = cam_z_pos + t*z_tmp;
     float z1 = z0;
+    
+    /*
+    I have a question here:
+    
+    From my perspective, what we should do is to project the coordinates onto a unit sphere whose origin is
+    (0,0,cam_z_pos).
+
+    However, it seems that the colors of the mesh polygons will become discontinuous if I change the value of z1.
+    Should z change together with x and y?
+    Maybe there is something wrong with my implementation.
+    */
+
+    
     gl_Position = vec4(x1,y1,z1,1); // homogenious coordinate
 }
