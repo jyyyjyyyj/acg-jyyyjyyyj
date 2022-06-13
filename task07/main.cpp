@@ -116,6 +116,7 @@ int main() {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
   viewer.OpenWindow();
   delfem2::opengl::setSomeLighting();
+  double u = 0.3;//???
   while (!glfwWindowShouldClose(viewer.window)) {
     double time = glfwGetTime();
     Eigen::Vector3d pos_trg( 1.5+sin(3*time), cos(2*time), 1*cos(time)+1.5 ); // target position
@@ -129,6 +130,10 @@ int main() {
       // if energy is zero, the tip of the cone (output position) and the red sphere (target position) match.
       // Adjust the coefficient LM algorithm such that the energy decrease after updating "arb.angle".
       // The implementation should be 3-5 in lines.
+      //auto test = diff_pos_def.transpose()* diff_pos_def;
+      Eigen::Matrix<double, 8, 1> diff = -(diff_pos_def.transpose() * diff_pos_def +
+          u * Eigen::MatrixXd::Identity(8,8)).inverse() * diff_pos_def.transpose() * (pos_def-pos_trg);
+      arb.angle += diff;
 
       // editing ends here
       arb.UpdateTransformations();
